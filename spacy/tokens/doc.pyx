@@ -471,6 +471,14 @@ cdef class Doc:
         else:
             return any(Token.get_struct_attr(&self.c[i], attr) for i in range(range_start, self.length))
 
+
+    def set_sent_start(self, i, value):
+        if i < 0:
+            i = self.length + i
+        bounds_check(i, self.length, PADDING)
+        self.c[i].sent_start = value
+
+
     def __getitem__(self, object i):
         """Get a `Token` or `Span` object.
 
